@@ -1,14 +1,14 @@
 package DomainLayer;
 
-import java.util.Scanner;
-
 public class Auto {
     private Snelheid HuidigeSnelheid;
     private int GewensteSnelheid;
+    private SnelheidServer SnelheidServer;
 
-    public Auto() {
+    public Auto(SnelheidServer ss) {
         HuidigeSnelheid = new Snelheid();
         GewensteSnelheid = 0;
+        SnelheidServer = ss;
     }
 
     public Snelheid snelheid() {
@@ -16,9 +16,7 @@ public class Auto {
     }
 
     public void setGewensteSnelheid() {
-        System.out.println("Voer de gewenste snelheid in: ");
-        Scanner S = new Scanner(System.in);
-        GewensteSnelheid = S.nextInt();
+        GewensteSnelheid = SnelheidServer.vraagSnelheid();
         naarSnelheid();
     }
 

@@ -1,10 +1,13 @@
 package PresentationLayer;
 
 import DomainLayer.Snelheid;
+import DomainLayer.SnelheidServer;
 import DomainLayer.Auto;
 
 import java.awt.Color;
 import java.awt.Font;
+
+import javax.swing.JOptionPane;
 import javax.swing.border.*;
 
 class DigitaleMeter extends javax.swing.JLabel {
@@ -32,6 +35,19 @@ class AnalogeMeter extends javax.swing.JProgressBar {
     }
 }
 
+class SnelheidInvoerPanel implements SnelheidServer {
+    public int vraagSnelheid() {
+        String invoer = JOptionPane.showInputDialog("Geef de snelheid in (0-300 km/h):");
+
+        try {
+            int invoerSnelheid = Integer.parseInt(invoer);
+            return invoerSnelheid;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+}
+
 public class Applicatie extends javax.swing.JFrame {
 
     private DigitaleMeter digitaleMeter;
@@ -40,7 +56,8 @@ public class Applicatie extends javax.swing.JFrame {
 
     public Applicatie() {
         initComponents();
-        A = new Auto();
+        SnelheidInvoerPanel S = new SnelheidInvoerPanel();
+        A = new Auto(S);
 
         Font font = new Font("SansSerif", Font.BOLD, 15);
 
