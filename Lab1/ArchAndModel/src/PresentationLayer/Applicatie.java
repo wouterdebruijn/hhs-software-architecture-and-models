@@ -3,13 +3,14 @@ package PresentationLayer;
 import DomainLayer.Snelheid;
 import DomainLayer.SnelheidServer;
 import InfrastructureLayer.Observer.Observer;
-import DomainLayer.Auto;
 
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JOptionPane;
 import javax.swing.border.*;
+
+import DomainImplLayer.AutoImpl;
 
 class DigitaleMeter extends javax.swing.JLabel implements Observer {
     private Snelheid S;
@@ -53,12 +54,12 @@ public class Applicatie extends javax.swing.JFrame {
 
     private DigitaleMeter digitaleMeter;
     private AnalogeMeter analogeMeter;
-    private Auto A;
+    private AutoImpl A;
 
     public Applicatie() {
         initComponents();
         SnelheidInvoerPanel S = new SnelheidInvoerPanel();
-        A = new Auto(S);
+        A = new AutoImpl(S);
 
         Font font = new Font("SansSerif", Font.BOLD, 15);
 

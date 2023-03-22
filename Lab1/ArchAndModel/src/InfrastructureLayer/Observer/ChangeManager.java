@@ -25,7 +25,7 @@ public class ChangeManager {
     public List<Observer> getObservers(Subject S) {
         List<Observer> L = new ArrayList<>();
         Set<Entry<Observer, Subject>> hashSet = map.entrySet();
-        for (Entry e : hashSet)
+        for (Entry<Observer, Subject> e : hashSet)
             if (e.getValue() == S)
                 L.add((Observer) e.getKey());
         return L;
@@ -33,7 +33,7 @@ public class ChangeManager {
 
     public void notifyObservers(Subject S) {
         Set<Entry<Observer, Subject>> hashSet = map.entrySet();
-        for (Entry e : hashSet)
+        for (Entry<Observer, Subject> e : hashSet)
             if (e.getValue() == S)
                 ((Observer) e.getKey()).update();
     }
