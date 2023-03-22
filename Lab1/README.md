@@ -6,3 +6,6 @@ I have added a "SnelheidServer" interface to move the user input (currently prov
 
 ## Lab1B
 Currently, the user interface calls an "snelheid" update method after asking for user input. This works when that is the only way to change the given "snelheid", but when the car's speed is changed by something else, the update method is skipped. To mitigate this problem we implement the Observer design pattern. The "Snelheid" class is a subject and the Digital and Analog meters are observers of that subject. Using the update() and notifyObservers() method the update is propagated to the presentation layer.
+
+## Lab1C
+The Domain layer has been split up in an implementation and abstract layer. This is done to satisfy the domain driven design principle. The functions of an object are defined in the domain layer, the implementation is moved to the DomainImplementationLayer.
