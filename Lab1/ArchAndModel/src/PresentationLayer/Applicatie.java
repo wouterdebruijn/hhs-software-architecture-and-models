@@ -2,6 +2,7 @@ package PresentationLayer;
 
 import DomainLayer.Snelheid;
 import DomainLayer.SnelheidServer;
+import InfrastructureLayer.Observer.Observer;
 import DomainLayer.Auto;
 
 import java.awt.Color;
@@ -10,7 +11,7 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.border.*;
 
-class DigitaleMeter extends javax.swing.JLabel {
+class DigitaleMeter extends javax.swing.JLabel implements Observer {
     private Snelheid S;
 
     public DigitaleMeter(Snelheid s) {
@@ -22,7 +23,7 @@ class DigitaleMeter extends javax.swing.JLabel {
     }
 }
 
-class AnalogeMeter extends javax.swing.JProgressBar {
+class AnalogeMeter extends javax.swing.JProgressBar implements Observer {
     public static final int MAXSNELHEID = 300; // Maximaal 300 km/h mogelijk
     private Snelheid S;
 
@@ -62,6 +63,8 @@ public class Applicatie extends javax.swing.JFrame {
         Font font = new Font("SansSerif", Font.BOLD, 15);
 
         digitaleMeter = new DigitaleMeter(A.snelheid());
+        A.snelheid().insertObserver(digitaleMeter);
+
         digitaleMeter.setVisible(true);
         digitaleMeter.setSize(30, 30);
         digitaleMeter.setBorder(new LineBorder(Color.black));
@@ -73,6 +76,8 @@ public class Applicatie extends javax.swing.JFrame {
         add(digitaleMeter);
 
         analogeMeter = new AnalogeMeter(A.snelheid());
+        A.snelheid().insertObserver(analogeMeter);
+
         analogeMeter.setVisible(true);
         analogeMeter.setSize(200, 20);
         analogeMeter.setBorder(new LineBorder(Color.black));
@@ -84,9 +89,6 @@ public class Applicatie extends javax.swing.JFrame {
         jLabel4.setText(String.valueOf(AnalogeMeter.MAXSNELHEID) + " km/h");
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -155,13 +157,11 @@ public class Applicatie extends javax.swing.JFrame {
                                 .addContainerGap()));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void VraagSnelheidButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_VraagSnelheidButtonActionPerformed
+    private void VraagSnelheidButtonActionPerformed(java.awt.event.ActionEvent evt) {
         A.setGewensteSnelheid();
-        digitaleMeter.update();
-        analogeMeter.update();
-    }// GEN-LAST:event_VraagSnelheidButtonActionPerformed
+    }
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -171,12 +171,10 @@ public class Applicatie extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton VraagSnelheidButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    // End of variables declaration//GEN-END:variables
 }

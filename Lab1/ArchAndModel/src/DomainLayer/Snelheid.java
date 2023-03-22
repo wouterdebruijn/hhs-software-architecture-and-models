@@ -1,10 +1,13 @@
 package DomainLayer;
 
-public class Snelheid {
+import InfrastructureLayer.Observer.Subject;
+
+public class Snelheid implements Subject {
     private int Waarde;
 
     public Snelheid() {
         Waarde = 0;
+        this.notifyObservers();
     }
 
     public int waarde() {
@@ -13,9 +16,11 @@ public class Snelheid {
 
     public void verhoog() {
         Waarde++;
+        this.notifyObservers();
     } // Simulatie
 
     public void verlaag() {
         Waarde--;
+        this.notifyObservers();
     } // Simulatie
 }
